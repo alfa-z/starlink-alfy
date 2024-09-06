@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Sidebar Navbar</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+ body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: url('/gettyimages-2131974711-612x612.jpg') no-repeat center center/cover;
+      overflow: hidden;
+    }
+
+    /* Style the navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent */
+      color: white;
+    }
+
+     /* Ensure the navbar links are visible */
+     .navbar .nav-link {
+      color: white;
+    }
+    .container-fluid{
+      background-color: #4b4b4b;
+      top: 10px;
+    }
+       /* Full page background image */
+       .full-background {
+      height: 100vh;
+      /* background: url('/gettyimages-2131974711-612x612.jpg') no-repeat center center/cover; */
+      position: relative;
+    }
+     /* Styling for content over the image */
+     .content {
+      text-align: center;
+      color: white;
+      position: relative;
+      z-index: 2;
+      
+    }
+       /* Darken the background for better text visibility */
+       .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+      z-index: 1;
+    }
+    /* Initially hide the navbar on small and medium screens (sidebar mode) */
+    @media (max-width: 991px) {
+      #navbar {
+        position: fixed;
+        right: -250px;
+        top: 5px;
+        height: 100vh;
+        width: 250px;
+        background-color: #090a0c;
+        transition: right 0.3s ease;
+        z-index: 1050;  /* Ensure it appears over content*/
+      }
+  
+      #navbar.show {
+        right: 0;
+      }
+      .nav-link{
+        color: white;
+        
+      }
+      .first{
+        margin-top: 50px;
+      }
+  
+      #closeSidebarBtn {
+        position: fixed;
+        top: 10px;
+        right: 260px;
+        display: block;
+        z-index: 1060;
+      }
+    }
+  
+    /* Ensure the navbar displays horizontally on large screens */
+    @media (min-width: 992px) {
+      #navbar {
+        position: relative;
+        right: 0;
+        top: 0;
+        height: auto;
+        width: auto;
+        background-color: transparent;
+      }
+  
+      #closeSidebarBtn {
+        display: none;
+      }
+    }
+    .navbar-custom {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.8); /* Optional: to make the navbar semi-transparent */
+    }
+  </style>
+  
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" onclick="openSidebar()" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link first" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Sales</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Dashboard</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="full-background">
+    <div class="overlay"></div>
+    <div class="content">
+      <h1 style="padding-top: 100px;">High-Speed Internet Around the World</h1>
+      <p>Connect at home or on the go.</p>
+      <button class="btn btn-primary">Order Now</button>
+    </div>
+  </div>
+  
+  
+  <script>
+    // Function to open the sidebar
+    function openSidebar() {
+      if (window.matchMedia("(max-width: 991px)").matches) { // Small and medium screens
+        document.getElementById("navbar").classList.add("show");
+        document.getElementById("closeSidebarBtn").style.display = "block";
+      }
+    }
+  
+    // Function to close the sidebar
+    function closeSidebar() {
+      if (window.matchMedia("(max-width: 991px)").matches) { // Small and medium screens
+        document.getElementById("navbar").classList.remove("show");
+        document.getElementById("closeSidebarBtn").style.display = "none";
+      }
+    }
+  
+    // Optional: Close the sidebar when clicked outside
+    window.addEventListener("click", function(event) {
+      if (!event.target.closest('.navbar') && !event.target.closest('.navbar-toggler')) {
+        closeSidebar();
+      }
+    });
+  </script>
+  
+       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+      
+</body>
+</html>
